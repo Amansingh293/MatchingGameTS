@@ -3,34 +3,69 @@ import { leftDataArray, rightDataArray, mapper } from "../dummyData";
 import { BackButtonSvg } from "../iconsSvg/BackButtonSvg";
 import { Card } from "../components/Card";
 import { FaHeart } from "react-icons/fa6";
-import { Console } from "console";
 import { WinnerSvg } from "../iconsSvg/WinnerSvg";
 import { Banana } from "../iconsSvg/Banana";
 import { GameOver } from "../components/GameOver";
 
-function shuffleArray<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
+function shuffleArray(array: any[]): any[] {
+  let filteredArray = array.filter((obj) => obj.isRemoved === false);
+
+  for (let i = filteredArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [filteredArray[i], filteredArray[j]] = [filteredArray[j], filteredArray[i]];
+  }
+
+  let i: number = 0,
+    j = 0;
+
+  while (i < array.length && j < filteredArray.length) {
+    if (!array[i].isRemoved) {
+      array[i] = filteredArray[j];
+      j++;
+    }
+    i++;
   }
   return array;
 }
 
+function deepCopyArray(arr: any[]): any[] {
+  return arr.map((item) => ({ ...item }));
+}
+
 export const Game = () => {
-  const [leftArray, setLeftArray] = useState<any[]>(leftDataArray);
-  const [rightArray, setRightArray] = useState<any[]>(rightDataArray);
+  const [leftArray, setLeftArray] = useState<any[]>(
+    deepCopyArray(leftDataArray)
+  );
+  const [rightArray, setRightArray] = useState<any[]>(
+    deepCopyArray(rightDataArray)
+  );
 
   const [toggler, setToggler] = useState<boolean>(false);
 
   let [ansArray, setAnsArray] = useState<any[]>([]);
-  console.log(ansArray);
 
-  const [finish, setFinish] = useState(leftArray.length);
+  const [finish, setFinish] = useState<number>(leftArray.length);
 
-  const [chancesLeft, setChancesLeft] = useState(10);
+  const [chancesLeft, setChancesLeft] = useState<number>(7);
+
+  const [clickDisable, setClickDisable] = useState<boolean>(false);
+
+  // at false left is clickable and at true right is clickable
+
+  const [clickActive, setClickActive] = useState<boolean>(false);
 
   useEffect(() => {
+    if (finish === 0 || chancesLeft === 0) {
+      console.log("clicked");
+      setLeftArray(deepCopyArray(leftDataArray));
+      setRightArray(deepCopyArray(rightDataArray));
+      console.log(leftDataArray);
+      return;
+    }
+
     if (ansArray.length === 2) {
+      setClickDisable(true);
+
       if (mapper[ansArray[1].name] == ansArray[0].icon) {
         setTimeout(() => {
           let tempLeft: any[] = [...leftArray];
@@ -46,14 +81,10 @@ export const Game = () => {
 
           setLeftArray(tempLeft);
           setRightArray(tempRight);
-          setFinish((finish) => finish - 1);
-        }, 1000);
+          setClickDisable(false);
+        }, 1400);
+        setFinish((finish) => finish - 1);
       } else {
-        console.log(
-          mapper[ansArray[1].name] == ansArray[0].icon,
-          mapper[ansArray[1].name],
-          ansArray[0].icon
-        );
         setTimeout(() => {
           let tempLeftArray: any[] = [...leftArray];
           tempLeftArray.forEach((obj) => (obj.isVisited = false));
@@ -64,17 +95,22 @@ export const Game = () => {
           tempRightArray.forEach((obj) => (obj.isVisited = false));
 
           let shuffledRightArray: any[] = shuffleArray(tempRightArray);
+
           setLeftArray(shuffledLeftArray);
           setRightArray(shuffledRightArray);
+          setClickDisable(false);
         }, 2000);
+        setChancesLeft((chancesLeft) => chancesLeft - 1);
       }
       setAnsArray([]);
-      setChancesLeft((chancesLeft) => chancesLeft - 1);
     }
   }, [ansArray]);
+
+  console.log(finish, "finish");
+
   return (
     <>
-      {chancesLeft <= 1 ? (
+      {chancesLeft < 1 ? (
         <GameOver />
       ) : (
         <div className="flex flex-col h-full w-full p-8">
@@ -86,7 +122,7 @@ export const Game = () => {
                 <Banana className="w-[7rem] h-[7rem]" />
                 <Banana className="w-[7rem] h-[7rem]" />
               </div>
-              <WinnerSvg />
+              <WinnerSvg className="w-[20rem] md:w-auto" />
               <div className="flex flex-col w-[30%] items-start justify-center">
                 <Banana className="w-[7rem] h-[7rem]" />
                 <Banana className="w-[7rem] h-[7rem]" />
@@ -96,13 +132,13 @@ export const Game = () => {
           ) : (
             <>
               <div className="flex justify-between items-center">
-                <BackButtonSvg className="" navigateId={4} />
+                <BackButtonSvg className="w-[10rem]" navigateId={4} />
                 <div className="p-2 rounded-xl bg-yellow-500 flex justify-center items-center text-[3rem]">
                   Chances Left = {chancesLeft}
                 </div>
               </div>
               <div className="flex justify-between items-center p-4">
-                <div className="w-[40%] h-full flex flex-wrap gap-6 justify-center">
+                <div className="w-[40%] h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-8 md:gap-4">
                   {leftArray &&
                     leftArray.map((obj, i) => {
                       return (
@@ -121,11 +157,14 @@ export const Game = () => {
                           ansArray={ansArray}
                           setAnsArray={setAnsArray}
                           isRemoved={obj.isRemoved}
+                          clickDisable={clickDisable}
+                          clickActive={clickActive}
+                          setClickActive={setClickActive}
                         />
                       );
                     })}
                 </div>
-                <div className="w-[40%] h-full flex flex-wrap gap-6 justify-center">
+                <div className="w-[40%] h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-4 ">
                   {rightArray &&
                     rightArray.map((obj, i) => {
                       return (
@@ -144,6 +183,9 @@ export const Game = () => {
                           ansArray={ansArray}
                           setAnsArray={setAnsArray}
                           isRemoved={obj.isRemoved}
+                          clickDisable={clickDisable}
+                          clickActive={clickActive}
+                          setClickActive={setClickActive}
                         />
                       );
                     })}

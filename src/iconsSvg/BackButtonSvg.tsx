@@ -19,7 +19,6 @@ export const BackButtonSvg = ({ className, navigateId }: ButtonProps) => {
       onClick={() =>
         navigateId === 0 ? navigate(`/`) : navigate(`/${navigateId}`)
       }
-      style={{ alignSelf: "start", cursor: "pointer" }}
     >
       <g filter="url(#filter0_ii_0_357)">
         <path

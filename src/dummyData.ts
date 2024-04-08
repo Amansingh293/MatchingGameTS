@@ -8,19 +8,19 @@ import {
   GiKiwiFruit,
 } from "react-icons/gi";
 
-interface leftData {
+export interface leftData {
   icon: React.ComponentType;
   isVisited: boolean;
   isRemoved: boolean;
   color: string;
 }
 
-interface rightData {
+export interface rightData {
   name: string;
   isVisited: boolean;
   isRemoved: boolean;
 }
-interface mapperTypes {
+export interface mapperTypes {
   [name: string]: React.ComponentType<{}>;
 }
 

@@ -17,7 +17,6 @@ export const YesButtonSvg = ({ className, navigateId }: YesButtonProps) => {
       viewBox="0 0 373 129"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-    //   style={{ alignSelf: "end", cursor: "pointer" }}
       onClick={() => navigate(`/${navigateId}`)}
     >
       <g filter="url(#filter0_d_0_480)">

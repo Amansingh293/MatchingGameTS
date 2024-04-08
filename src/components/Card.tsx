@@ -13,7 +13,10 @@ interface CardProps {
   sender: string;
   ansArray: any[];
   setAnsArray: Dispatch<SetStateAction<any[]>>;
-  isRemoved: boolean
+  isRemoved: boolean;
+  clickDisable: boolean;
+  clickActive: boolean;
+  setClickActive: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Card = ({
@@ -29,11 +32,26 @@ export const Card = ({
   sender,
   setAnsArray,
   ansArray,
-  isRemoved
+  isRemoved,
+  clickDisable,
+  clickActive,
+  setClickActive,
 }: CardProps) => {
   const handleClick = () => {
-    if (!toggler && sender !== "left") {
 
+    if (
+      (sender === "left" && clickActive === true) ||
+      (sender === "right" && clickActive === false) ||
+      (isRemoved === true)
+    ) {
+      return;
+    }
+
+    if (clickDisable) {
+      return;
+    }
+
+    if (!toggler && sender !== "left") {
       return;
     }
 
@@ -45,6 +63,8 @@ export const Card = ({
 
     setToggler(!toggler);
 
+    setClickActive(clickActive=>!clickActive);
+
     let tempAns: any[] = [...ansArray];
     tempAns.push(dataArray[index]);
 
@@ -55,7 +75,9 @@ export const Card = ({
 
   return (
     <div
-      className={`h-[14rem] w-[10rem] ${color} rounded-xl flex justify-center items-center cursor-pointer ${isRemoved ? `hidden`: `flex`}`}
+      className={`h-[14rem] w-[10rem] ${color} rounded-xl flex justify-center items-center ${!isRemoved ? "cursor-pointer" : ""} ${
+        isRemoved ? `opacity-0` : `opacity-1`
+      }`}
       onClick={handleClick}
     >
       <div className={` text-[5rem] ${iconColor}`}>

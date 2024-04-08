@@ -10,10 +10,10 @@ export const Introduction1 = () => {
   return (
     <>
       <div className="monkeySvg">
-        <BackButtonSvg className="pt-2" navigateId={0}/>
+        <BackButtonSvg className="pt-2 self-start cursor-pointer w-[16rem]" navigateId={0}/>
         <IntroSvg className="self-start" />
-        <MokeySvg className="h-[20rem] w-[30rem]" />
-        <NextButtonSvg className="self-end cursor-pointer" navigateId={3} />
+        <MokeySvg className="h-[20rem] w-[25rem] lg:w-[30rem] " />
+        <NextButtonSvg className="self-end cursor-pointer w-[16rem]"  navigateId={3} />
       </div>
     </>
   );

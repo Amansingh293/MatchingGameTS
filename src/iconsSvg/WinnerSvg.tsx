@@ -1,11 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const WinnerSvg = () => {
+interface YesButtonProps {
+  className: string;
+}
+
+export const WinnerSvg = ({className} : YesButtonProps) => {
 
     const navigate = useNavigate();
   return (
     <svg
+    className={className}
       width="500"
       height="600"
       viewBox="0 0 557 752"

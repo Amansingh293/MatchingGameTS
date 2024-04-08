@@ -7,6 +7,7 @@ interface MonkeyProps {
 export const MokeySvg = ({ className }: MonkeyProps) => {
   return (
     <svg
+    className={className}
       width="666"
       height="632"
       viewBox="0 0 666 632"

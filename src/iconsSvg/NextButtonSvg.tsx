@@ -10,13 +10,14 @@ export const NextButtonSvg = ({ className, navigateId }: ButtonProps) => {
   const navigate = useNavigate();
   return (
     <svg
+    className={className}
       width="373"
       height="129"
       viewBox="0 0 373 129"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       onClick={() => navigate(`/${navigateId}`)}
-      style={{ alignSelf: "end", cursor: "pointer" }}
+
     >
       <g filter="url(#filter0_d_0_364)">
         <path
