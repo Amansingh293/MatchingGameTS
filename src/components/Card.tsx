@@ -1,5 +1,5 @@
 import React, { ComponentType, SetStateAction, Dispatch } from "react";
-
+import { data } from "../dummyData";
 interface CardProps {
   color: string;
   icon: ComponentType<{}>;
@@ -55,7 +55,7 @@ export const Card = ({
       return;
     }
 
-    let tempArray: any[] = [...dataArray];
+    let tempArray: data[] = [...dataArray];
 
     tempArray[index].isVisited = !tempArray[index].isVisited;
 
@@ -65,7 +65,7 @@ export const Card = ({
 
     setClickActive(clickActive=>!clickActive);
 
-    let tempAns: any[] = [...ansArray];
+    let tempAns: data[] = [...ansArray];
     tempAns.push(dataArray[index]);
 
     setAnsArray(tempAns);
