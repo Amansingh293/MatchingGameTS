@@ -28,7 +28,7 @@ function shuffleArray(array: data[]): data[] {
   return array;
 }
 
-function deepCopyArray(arr: any[]): any[] {
+function deepCopyArray(arr: data[]): data[] {
   return arr.map((item) => ({ ...item }));
 }
 
