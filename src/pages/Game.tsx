@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { leftDataArray, rightDataArray, mapper } from "../dummyData";
+import { dataArray, data, mapper } from "../dummyData";
 import { BackButtonSvg } from "../iconsSvg/BackButtonSvg";
 import { Card } from "../components/Card";
 import { FaHeart } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { WinnerSvg } from "../iconsSvg/WinnerSvg";
 import { Banana } from "../iconsSvg/Banana";
 import { GameOver } from "../components/GameOver";
 
-function shuffleArray(array: any[]): any[] {
+function shuffleArray(array: data[]): data[] {
   let filteredArray = array.filter((obj) => obj.isRemoved === false);
 
   for (let i = filteredArray.length - 1; i > 0; i--) {
@@ -33,16 +33,14 @@ function deepCopyArray(arr: any[]): any[] {
 }
 
 export const Game = () => {
-  const [leftArray, setLeftArray] = useState<any[]>(
-    deepCopyArray(leftDataArray)
-  );
-  const [rightArray, setRightArray] = useState<any[]>(
-    deepCopyArray(rightDataArray)
+  const [leftArray, setLeftArray] = useState<data[]>(deepCopyArray(dataArray));
+  const [rightArray, setRightArray] = useState<data[]>(
+    deepCopyArray(dataArray)
   );
 
   const [toggler, setToggler] = useState<boolean>(false);
 
-  let [ansArray, setAnsArray] = useState<any[]>([]);
+  let [ansArray, setAnsArray] = useState<data[]>([]);
 
   const [finish, setFinish] = useState<number>(leftArray.length);
 
@@ -57,23 +55,23 @@ export const Game = () => {
   useEffect(() => {
     if (finish === 0 || chancesLeft === 0) {
       console.log("clicked");
-      setLeftArray(deepCopyArray(leftDataArray));
-      setRightArray(deepCopyArray(rightDataArray));
-      console.log(leftDataArray);
+      setLeftArray(deepCopyArray(dataArray));
+      setRightArray(deepCopyArray(dataArray));
+      console.log(dataArray);
       return;
     }
 
     if (ansArray.length === 2) {
       setClickDisable(true);
-
+      // eslint-disable-next-line
       if (mapper[ansArray[1].name] == ansArray[0].icon) {
         setTimeout(() => {
-          let tempLeft: any[] = [...leftArray];
+          let tempLeft: data[] = [...leftArray];
           let leftIndex = tempLeft.findIndex((item) => item === ansArray[0]);
           if (leftIndex !== -1) {
             tempLeft[leftIndex].isRemoved = true;
           }
-          let tempRight: any[] = [...rightArray];
+          let tempRight: data[] = [...rightArray];
           let rightIndex = tempRight.findIndex((item) => item === ansArray[1]);
           if (rightIndex !== -1) {
             tempRight[rightIndex].isRemoved = true;
@@ -86,15 +84,15 @@ export const Game = () => {
         setFinish((finish) => finish - 1);
       } else {
         setTimeout(() => {
-          let tempLeftArray: any[] = [...leftArray];
+          let tempLeftArray: data[] = [...leftArray];
           tempLeftArray.forEach((obj) => (obj.isVisited = false));
 
-          let shuffledLeftArray: any[] = shuffleArray(tempLeftArray);
+          let shuffledLeftArray: data[] = shuffleArray(tempLeftArray);
 
-          let tempRightArray: any[] = [...rightArray];
+          let tempRightArray: data[] = [...rightArray];
           tempRightArray.forEach((obj) => (obj.isVisited = false));
 
-          let shuffledRightArray: any[] = shuffleArray(tempRightArray);
+          let shuffledRightArray: data[] = shuffleArray(tempRightArray);
 
           setLeftArray(shuffledLeftArray);
           setRightArray(shuffledRightArray);
@@ -104,6 +102,7 @@ export const Game = () => {
       }
       setAnsArray([]);
     }
+    // eslint-disable-next-line
   }, [ansArray]);
 
   console.log(finish, "finish");
