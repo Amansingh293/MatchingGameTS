@@ -3,7 +3,7 @@ interface BananaProps {
     className: string;
 
   }
-export const Banana = ({className} : BananaProps) => {
+export const StartBanana = ({className} : BananaProps) => {
   return (
     <svg
     className={className}

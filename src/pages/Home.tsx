@@ -1,5 +1,5 @@
 import React from "react";
-import { MokeySvg } from "../iconsSvg/MokeySvg";
+import { MonkeySvg } from "../iconsSvg/MonkeySvg";
 import { WelcomeSvg } from "../iconsSvg/WelcomeSvg";
 import { ButtonSvg } from "../iconsSvg/ButtonSvg";
 import { AppleSvg } from "../iconsSvg/AppleSvg";
@@ -9,8 +9,8 @@ export const Home = () => {
     <>
       <div className="monkeySvg">
         <WelcomeSvg className="self-start cursor-pointer" />
-        <MokeySvg className="h-[20rem] w-[30rem]" />
-        <ButtonSvg className="self-end cursor-pointer" navigateId={2} />
+        <MonkeySvg className="h-[20rem] w-[30rem]" />
+        <ButtonSvg className="self-end cursor-pointer w-[15rem]" navigateId={2} />
         
       </div>
     </>

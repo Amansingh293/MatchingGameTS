@@ -38,11 +38,10 @@ export const Card = ({
   setClickActive,
 }: CardProps) => {
   const handleClick = () => {
-
     if (
       (sender === "left" && clickActive === true) ||
       (sender === "right" && clickActive === false) ||
-      (isRemoved === true)
+      isRemoved === true
     ) {
       return;
     }
@@ -63,7 +62,7 @@ export const Card = ({
 
     setToggler(!toggler);
 
-    setClickActive(clickActive=>!clickActive);
+    setClickActive((clickActive) => !clickActive);
 
     let tempAns: data[] = [...ansArray];
     tempAns.push(dataArray[index]);
@@ -75,9 +74,9 @@ export const Card = ({
 
   return (
     <div
-      className={`h-[14rem] w-[10rem] ${color} rounded-xl flex justify-center items-center ${!isRemoved ? "cursor-pointer" : ""} ${
-        isRemoved ? `opacity-0` : `opacity-1`
-      }`}
+      className={`h-[9rem] w-[7rem] md:h-[14rem] md:w-[10rem] ${color} rounded-xl flex justify-center items-center ${
+        !isRemoved ? "cursor-pointer" : ""
+      } ${isRemoved ? `opacity-0` : `opacity-1`}`}
       onClick={handleClick}
     >
       <div className={` text-[5rem] ${iconColor}`}>

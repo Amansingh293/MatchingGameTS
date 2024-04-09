@@ -4,8 +4,9 @@ import { BackButtonSvg } from "../iconsSvg/BackButtonSvg";
 import { Card } from "../components/Card";
 import { FaHeart } from "react-icons/fa6";
 import { WinnerSvg } from "../iconsSvg/WinnerSvg";
-import { Banana } from "../iconsSvg/Banana";
+import { StartBanana } from "../iconsSvg/StartBanana";
 import { GameOver } from "../components/GameOver";
+import { MatchSvg } from "../iconsSvg/MatchSvg";
 
 function shuffleArray(array: data[]): data[] {
   let filteredArray = array.filter((obj) => obj.isRemoved === false);
@@ -48,21 +49,23 @@ export const Game = () => {
 
   const [clickDisable, setClickDisable] = useState<boolean>(false);
 
-  // at false left is clickable and at true right is clickable
+  const [matchAnimation, setMatchAnimation] = useState<boolean>(false);
 
   const [clickActive, setClickActive] = useState<boolean>(false);
 
   useEffect(() => {
+
     if (finish === 0 || chancesLeft === 0) {
       console.log("clicked");
       setLeftArray(deepCopyArray(dataArray));
       setRightArray(deepCopyArray(dataArray));
-      console.log(dataArray);
       return;
     }
 
     if (ansArray.length === 2) {
       setClickDisable(true);
+      setMatchAnimation(true);
+      // below logic for matched
       // eslint-disable-next-line
       if (mapper[ansArray[1].name] == ansArray[0].icon) {
         setTimeout(() => {
@@ -80,9 +83,11 @@ export const Game = () => {
           setLeftArray(tempLeft);
           setRightArray(tempRight);
           setClickDisable(false);
-        }, 1400);
+          setMatchAnimation(false);
+        }, 1200);
         setFinish((finish) => finish - 1);
       } else {
+        // below logic for not matched
         setTimeout(() => {
           let tempLeftArray: data[] = [...leftArray];
           tempLeftArray.forEach((obj) => (obj.isVisited = false));
@@ -105,8 +110,6 @@ export const Game = () => {
     // eslint-disable-next-line
   }, [ansArray]);
 
-  console.log(finish, "finish");
-
   return (
     <>
       {chancesLeft < 1 ? (
@@ -116,28 +119,35 @@ export const Game = () => {
           {finish === 0 ? (
             <div className="flex flex-col md:flex-row justify-center items-center h-full w-full">
               <div className="flex flex-col w-[30%] items-end justify-center">
-                <Banana className="w-[7rem] h-[7rem]" />
-                <Banana className="w-[7rem] h-[7rem]" />
-                <Banana className="w-[7rem] h-[7rem]" />
-                <Banana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
               </div>
               <WinnerSvg className="w-[20rem] md:w-auto" />
               <div className="flex flex-col w-[30%] items-start justify-center">
-                <Banana className="w-[7rem] h-[7rem]" />
-                <Banana className="w-[7rem] h-[7rem]" />
-                <Banana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
+                <StartBanana className="w-[7rem] h-[7rem]" />
               </div>
             </div>
           ) : (
             <>
+              {matchAnimation && (
+                <>
+                  <div className="absolute inset-0 bg-pink-100 flex justify-center items-center text-[6rem] opacity-[0.6]">
+                    <MatchSvg className="absolute z-10" />
+                  </div>
+                </>
+              )}
               <div className="flex justify-between items-center">
-                <BackButtonSvg className="w-[10rem]" navigateId={4} />
-                <div className="p-2 rounded-xl bg-yellow-500 flex justify-center items-center text-[3rem]">
+                <BackButtonSvg className="h-[7rem] w-[7rem]" navigateId={4} />
+                <div className="p-2 rounded-xl bg-yellow-500 flex justify-center items-center text-[1.5rem] md:text-[3rem] ">
                   Chances Left = {chancesLeft}
                 </div>
               </div>
-              <div className="flex justify-between items-center p-4">
-                <div className="w-[40%] h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-8 md:gap-4">
+              <div className="flex justify-between items-center p-4 gap-4">
+                <div className=" h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-8 md:gap-4">
                   {leftArray &&
                     leftArray.map((obj, i) => {
                       return (
@@ -163,7 +173,7 @@ export const Game = () => {
                       );
                     })}
                 </div>
-                <div className="w-[40%] h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-4 ">
+                <div className=" h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-4 ">
                   {rightArray &&
                     rightArray.map((obj, i) => {
                       return (

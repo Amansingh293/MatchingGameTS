@@ -8,8 +8,6 @@ export const InstructionsCard2 = ({ className }: InstructionsCard2Props) => {
   return (
     <svg
       className={className}
-      width="220"
-      height="400"
       viewBox="0 0 351 438"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

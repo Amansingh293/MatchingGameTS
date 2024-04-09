@@ -4,7 +4,7 @@ interface MonkeyProps {
   className: string;
 }
 
-export const MokeySvg = ({ className }: MonkeyProps) => {
+export const MonkeySvg = ({ className }: MonkeyProps) => {
   return (
     <svg
     className={className}

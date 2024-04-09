@@ -7,9 +7,8 @@ interface WelcomeProps {
 export const IntroSvg = ({ className }: WelcomeProps) => {
   return (
     <div className="">
-      {/* <h1 className="absolute left-2 top-0">Welcome Kiddo !</h1> */}
       <svg
-        className={className + "flex justify-center items-center"}
+        className={className + " flex justify-center items-center"}
         width="500"
         height="220"
         viewBox="0 0 576 279"

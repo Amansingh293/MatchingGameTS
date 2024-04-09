@@ -4,11 +4,10 @@ interface InstructionsCard3Props {
   className: string;
 }
 
-export const InstructionsCard3 = ({className} : InstructionsCard3Props) => {
+export const InstructionsCard3 = ({ className }: InstructionsCard3Props) => {
   return (
     <svg
-      width="220"
-      height="400"
+      className={className}
       viewBox="0 0 351 438"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

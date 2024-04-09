@@ -1,3 +1,5 @@
+// Dummy data for Game
+
 import { FaAppleAlt } from "react-icons/fa";
 
 import {

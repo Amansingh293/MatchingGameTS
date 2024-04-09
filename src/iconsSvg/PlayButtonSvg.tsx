@@ -8,12 +8,9 @@ interface PlayButtonProp {
 
 export const PlayButtonSvg = ({ className, navigateId }: PlayButtonProp) => {
   let navigate = useNavigate();
-  console.log(className);
   return (
     <svg
       className={className}
-      width="373"
-      height="129"
       viewBox="0 0 373 129"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -11,8 +11,8 @@ export const BackButtonSvg = ({ className, navigateId }: ButtonProps) => {
   return (
     <svg
       className={className}
-      width="194"
-      height="194"
+      // width="194"
+      // height="194"
       viewBox="0 0 194 194"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
