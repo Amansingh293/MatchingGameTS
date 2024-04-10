@@ -41,7 +41,7 @@ export const Game = () => {
 
   const [toggler, setToggler] = useState<boolean>(false);
 
-  let [ansArray, setAnsArray] = useState<data[]>([]);
+  const [ansArray, setAnsArray] = useState<data[]>([]);
 
   const [finish, setFinish] = useState<number>(leftArray.length);
 
@@ -64,10 +64,10 @@ export const Game = () => {
 
     if (ansArray.length === 2) {
       setClickDisable(true);
-      setMatchAnimation(true);
       // below logic for matched
       // eslint-disable-next-line
       if (mapper[ansArray[1].name] == ansArray[0].icon) {
+        setMatchAnimation(true);
         setTimeout(() => {
           let tempLeft: data[] = [...leftArray];
           let leftIndex = tempLeft.findIndex((item) => item === ansArray[0]);
