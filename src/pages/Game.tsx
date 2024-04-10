@@ -135,8 +135,8 @@ export const Game = () => {
             <>
               {matchAnimation && (
                 <>
-                  <div className="absolute inset-0 bg-pink-100 flex justify-center items-center text-[6rem] opacity-[0.6]">
-                    <MatchSvg className="absolute z-10" />
+                  <div className="absolute inset-0 bg-pink-100 flex justify-center items-center text-[6rem] opacity-[0.6] h-[100vh] md:h-[auto]">
+                    <MatchSvg className="absolute z-10 w-[8rem] md:w-[18rem]" />
                   </div>
                 </>
               )}

@@ -8,8 +8,6 @@ export const MatchSvg = ({ className }: MatchSvgProps) => {
   return (
     <svg
       className={className}
-      width="666"
-      height="71"
       viewBox="0 0 666 71"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
