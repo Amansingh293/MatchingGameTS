@@ -6,11 +6,11 @@
   box-sizing: border-box;
 }
 .App {
-  background-image: url("https://s3-alpha-sig.figma.com/img/fa56/bd65/60c51db815c7b8d80cfda1a8921ca84f?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WfxaDOsvJ5tuZos6oCu2vtI6vyFrfG4sfWCev2tgynF2IcialaBzJle2SSL~Cq1pIbhZKAuHXn9bvtBZzdK4NQH40PtTbIYfWy-oOdEbCvsmgQv4yxfVTj~qxiHtDI2Kgf9YmDz3pIdFCkT~FPngBOrU0bfjKEO-yMADORxBBS9L1sGUUXn58tdqgnLkAYNNUMwbjWrf8RABo3jlwJTzsnSD-046qGfp-UCQW0OFyVLEymWoKNL~yS03XqhdPvIKdTeLPIvJtqMyv8IsqrelgnYv0UsAqGv8~qEmMjX0oKriG85i7XAn-jdejjQLpT33IFpSC43E1C5ChCuSZ8bgTQ__");
+  background-image: url("../public/backgroundImage.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: auto;
+  height: auto; 
   max-height: fit-content;
   width: 100%;
 }
